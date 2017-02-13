@@ -1,53 +1,16 @@
 #include "main.h"
 
-int e;
-pthread_t handler;
-GtkToggleButton *activeButton = NULL; 
-
-void *draw(void *arg)
-{
-  while (1)
-  {
-    printf("ntm\n");
-  }
-
-    pthread_exit(NULL);
-}
-
-G_MODULE_EXPORT void drawSignal (GtkToggleButton *drawButton, GtkWidget *fenetre_principale)
-{
-  if (gtk_toggle_button_get_active(drawButton) == 1)
-  {
-    if (activeButton != NULL) 
-      gtk_toggle_button_set_active(activeButton, 0);
-    activeButton = drawButton;
-    e = pthread_create(&handler, NULL, draw, NULL);
-  }
-  else
-  {
-        pthread_cancel(handler);
-  }
-}
-
-G_MODULE_EXPORT void togglebutton2 (GtkToggleButton *togglebutton2, GtkWidget *fenetre_principale)
-{
-  if (gtk_toggle_button_get_active(togglebutton2) == 1)
-  {
-    if (activeButton != NULL) 
-      gtk_toggle_button_set_active(activeButton, 0);
-    activeButton = togglebutton2;
-    printf("stop\n");
-    //e = pthread_create(&handler, NULL, draw, NULL);
-  }
-  else
-  {
-       //pthread_cancel(handler);
-  }
-}
+SDL_Surface *paint = NULL;
 
 int main(int argc, char *argv [])
 {
-  GtkWidget *fenetre_principale = NULL;
+  SDL_Init(SDL_INIT_VIDEO);
+  paint = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE|SDL_RESIZABLE);
+  SDL_FillRect(paint, NULL, SDL_MapRGB(paint->format, 255, 255, 255));
+  SDL_Flip(paint);
+
+  GtkWidget *ToolWindow = NULL;
+  GtkWidget *ColorWindow = NULL;
   GtkBuilder *builder = NULL;
   gchar *filename = NULL;
   GError *error = NULL;
@@ -66,12 +29,15 @@ int main(int argc, char *argv [])
   }
   
   gtk_builder_connect_signals(builder,NULL);
-  fenetre_principale = GTK_WIDGET(gtk_builder_get_object (builder,"MainWindow"));
-  g_signal_connect (G_OBJECT (fenetre_principale),"destroy",(GCallback)gtk_main_quit,NULL);
-  gtk_widget_show_all(fenetre_principale);
-  
+  ToolWindow = GTK_WIDGET(gtk_builder_get_object (builder,"ToolWindow"));
+  ColorWindow = GTK_WIDGET(gtk_builder_get_object (builder,"ColorWindow"));
+  g_signal_connect (G_OBJECT (ToolWindow),"destroy",(GCallback)gtk_main_quit,NULL);
+  gtk_widget_show_all(ToolWindow);
+  gtk_widget_show_all(ColorWindow);
+ 
 
   gtk_main();
+  SDL_Quit();
   return 0;
 
 }
