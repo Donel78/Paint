@@ -1,20 +1,49 @@
-#include <gtk/gtk.h>
-#include <stdio.h>
+#include "main.h"
 
-/*G_MODULE_EXPORT void on_button1_clicked (GtkButton *button1, GtkWidget *fenetre_principale)
+int e;
+pthread_t handler;
+GtkToggleButton *activeButton = NULL; 
+
+void *draw(void *arg)
 {
-  while(1)
-  {  
+  while (1)
+  {
     printf("ntm\n");
-    sleep(2);
+  }
+
+    pthread_exit(NULL);
+}
+
+G_MODULE_EXPORT void drawSignal (GtkToggleButton *drawButton, GtkWidget *fenetre_principale)
+{
+  if (gtk_toggle_button_get_active(drawButton) == 1)
+  {
+    if (activeButton != NULL) 
+      gtk_toggle_button_set_active(activeButton, 0);
+    activeButton = drawButton;
+    e = pthread_create(&handler, NULL, draw, NULL);
+  }
+  else
+  {
+        pthread_cancel(handler);
   }
 }
 
-G_MODULE_EXPORT void on_button2_clicked (GtkButton *button1, GtkWidget *fenetre_principale)
+G_MODULE_EXPORT void togglebutton2 (GtkToggleButton *togglebutton2, GtkWidget *fenetre_principale)
 {
+  if (gtk_toggle_button_get_active(togglebutton2) == 1)
+  {
+    if (activeButton != NULL) 
+      gtk_toggle_button_set_active(activeButton, 0);
+    activeButton = togglebutton2;
     printf("stop\n");
+    //e = pthread_create(&handler, NULL, draw, NULL);
+  }
+  else
+  {
+       //pthread_cancel(handler);
+  }
 }
-*/
 
 int main(int argc, char *argv [])
 {
