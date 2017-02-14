@@ -7,7 +7,7 @@ CFLAGS= -Wall -Wextra -std=c99 -O3
 LDFLAGS=
 LDLIBS= `pkg-config --libs sdl gtk+-3.0 gmodule-2.0` -lSDL_image
  
-SRC= main.c paint_function.c signal_function.c
+SRC= main.c paint_function.c signal_function.c sdl_function.c
 OBJ= ${SRC:.c=.o}
  
 all: main

@@ -10,7 +10,6 @@ int main(int argc, char *argv [])
   SDL_Flip(paint);
 
   GtkWidget *ToolWindow = NULL;
-  GtkWidget *ColorWindow = NULL;
   GtkBuilder *builder = NULL;
   gchar *filename = NULL;
   GError *error = NULL;
@@ -30,10 +29,8 @@ int main(int argc, char *argv [])
   
   gtk_builder_connect_signals(builder,NULL);
   ToolWindow = GTK_WIDGET(gtk_builder_get_object (builder,"ToolWindow"));
-  ColorWindow = GTK_WIDGET(gtk_builder_get_object (builder,"ColorWindow"));
   g_signal_connect (G_OBJECT (ToolWindow),"destroy",(GCallback)gtk_main_quit,NULL);
   gtk_widget_show_all(ToolWindow);
-  gtk_widget_show_all(ColorWindow);
  
 
   gtk_main();
