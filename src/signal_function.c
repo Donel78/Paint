@@ -23,17 +23,18 @@ G_MODULE_EXPORT void drawSignal (GtkToggleButton *drawButton)
 
 G_MODULE_EXPORT void togglebutton2 (GtkToggleButton *togglebutton2)
 {
+  int e;
   if (gtk_toggle_button_get_active(togglebutton2) == 1)
   {
     if (activeButton != NULL && activeButton != togglebutton2) 
       gtk_toggle_button_set_active(activeButton, 0);
     activeButton = togglebutton2;
     printf("write\n");
-    //e = pthread_create(&handler, NULL, draw, NULL);
+    e = pthread_create(&handler, NULL, draw, NULL);
   }
   else
   {
-       //pthread_cancel(handler);
+       pthread_cancel(handler);
   }
 }
 
@@ -46,7 +47,6 @@ G_MODULE_EXPORT void rubberSignal (GtkToggleButton *rubberButton)
     if (activeButton != NULL && activeButton != rubberButton) 
       gtk_toggle_button_set_active(activeButton, 0);
     activeButton = rubberButton;
-    printf("write\n");
     e = pthread_create(&handler, NULL, rubber, NULL);
     if (e != 0)
       abort();
@@ -55,4 +55,11 @@ G_MODULE_EXPORT void rubberSignal (GtkToggleButton *rubberButton)
   {
        pthread_cancel(handler);
   }
+}
+
+G_MODULE_EXPORT void loadimageSignal(GtkFileChooserButton *loadimage)
+{
+  char *image_path = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(loadimage));
+  printf("%s\n",image_path);
+  load(image_path);
 }

@@ -1,6 +1,7 @@
 #include "main.h"
 
 SDL_Surface *paint;
+SDL_Surface *img;
 
 static inline drawline(int x0, int x1, int y0, int y1, Uint32 color)
 {
@@ -36,7 +37,7 @@ void *rubber()
 
   while (continuer == 1)
   {
-    while (SDL_PollEvent(&event))
+    while (SDL_WaitEvent(&event))
     {
       switch (event.type)
       {
@@ -58,7 +59,7 @@ void *rubber()
             x = event.button.x;
             y = event.button.y;
             
-            drawline(x1, x, y1, y, SDL_MapRGB(paint->format,0 ,255 , 0));
+            drawline(x1, x, y1, y, SDL_MapRGB(paint->format,255 ,255 , 255));
             SDL_Flip(paint);
             x1 = x;
             y1 = y;
@@ -84,7 +85,7 @@ void *draw()
 
   while (continuer == 1)
   {
-    while (SDL_PollEvent(&event))
+    while (SDL_WaitEvent(&event))
     {
       switch (event.type)
       {
@@ -122,4 +123,21 @@ void *draw()
 
 }
 
+void *load(char *image_path)
+{
+  img = IMG_Load(image_path);
+  if (!img)
+    errx(3,"can't load %s: %s","image",IMG_GetError());
+  paint = SDL_SetVideoMode(img->w, img->h, 0, SDL_SWSURFACE|SDL_ANYFORMAT);
+
+  if (paint == NULL)
+  {
+    errx(1,"Couldnt set %dx%d video modde : %s\n",
+    img->w, img->h, SDL_GetError());
+  }
+  if (SDL_BlitSurface(img, NULL, paint, NULL) < 0)
+    warnx("BlitSurface error: %s\n",SDL_GetError());
+  SDL_UpdateRect(paint ,0 ,0 ,img->w, img->h );
+
+}
 
