@@ -141,3 +141,10 @@ void *load(char *image_path)
 
 }
 
+void *save(char *save_path)
+{
+  printf("%s\n",save_path);
+  int r = SDL_SaveBMP(paint,save_path);
+  if (r == 0)
+    puts("err");
+}

@@ -19,6 +19,7 @@ extern SDL_Surface *paint;
 void *draw();
 void *rubber();
 void *load(char *image_path);
+void *save(char *save_path);
 
 //signal function
 G_MODULE_EXPORT void drawSignal (GtkToggleButton *drawButton);

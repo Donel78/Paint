@@ -63,3 +63,34 @@ G_MODULE_EXPORT void loadimageSignal(GtkFileChooserButton *loadimage)
   printf("%s\n",image_path);
   load(image_path);
 }
+
+G_MODULE_EXPORT void saveimageSignal(gpointer data)
+{
+
+  GtkWidget *pSave=NULL;
+  pSave = gtk_file_chooser_dialog_new ("Save File as ...",
+      GTK_WINDOW(data),
+      GTK_FILE_CHOOSER_ACTION_SAVE,
+      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+      GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+      NULL);
+  gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (pSave), TRUE);
+  gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (pSave), "Untitled.");
+
+
+
+  if (gtk_dialog_run (GTK_DIALOG (pSave)) == GTK_RESPONSE_ACCEPT)
+  {
+    char *pathname;
+    pathname = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (pSave));
+    save(pathname);
+    /* save the output */
+//    printf("%s\n",pathname);
+  }
+
+  gtk_widget_destroy (pSave);
+}
+G_MODULE_EXPORT void colorSignal()
+{
+  puts("color switch");
+}
