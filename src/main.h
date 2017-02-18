@@ -14,6 +14,7 @@
 extern pthread_t handler;
 extern GtkToggleButton *activeButton; 
 extern SDL_Surface *paint;
+extern GdkRGBA *color;
 
 //paint function
 void *draw();

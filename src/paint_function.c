@@ -3,7 +3,7 @@
 SDL_Surface *paint;
 SDL_Surface *img;
 
-static inline drawline(int x0, int x1, int y0, int y1, Uint32 color)
+static inline void drawline(int x0, int x1, int y0, int y1, Uint32 color)
 {
   int dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
   int dy = abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
@@ -25,13 +25,14 @@ static inline drawline(int x0, int x1, int y0, int y1, Uint32 color)
       y0 += sy;
     }
   }
-  return 0;
 }
 void *rubber()
 {
   SDL_Event event;
-  int x1, x;
-  int y1, y;
+  int x1 = 0;
+  int x = 0;
+  int y1 = 0;
+  int y = 0;
   int continuer = 1;
   int is_pressed = 0;
 
@@ -78,11 +79,14 @@ void *rubber()
 void *draw()
 {
   SDL_Event event;
-  int x1, x;
-  int y1, y;
+  int x1 = 0;
+  int x = 0;
+  int y1 = 0;
+  int y = 0;
   int continuer = 1;
   int is_pressed = 0;
-
+  printf("%f\n",color->red * 255);
+  puts("lol");
   while (continuer == 1)
   {
     while (SDL_WaitEvent(&event))
@@ -107,7 +111,8 @@ void *draw()
             x = event.button.x;
             y = event.button.y;
             
-            drawline(x1, x, y1, y, SDL_MapRGB(paint->format, 0, 0, 255));
+            drawline(x1, x, y1, y, SDL_MapRGB(paint->format, color->red * 255, color->green * 255,color->blue * 255));
+            printf("%f\n",color->red);
             SDL_Flip(paint);
             x1 = x;
             y1 = y;
@@ -139,12 +144,13 @@ void *load(char *image_path)
     warnx("BlitSurface error: %s\n",SDL_GetError());
   SDL_UpdateRect(paint ,0 ,0 ,img->w, img->h );
 
+  return 0;
 }
 
 void *save(char *save_path)
 {
-  printf("%s\n",save_path);
   int r = SDL_SaveBMP(paint,save_path);
-  if (r == 0)
+  if (r != 0)
     puts("err");
+  return 0;
 }

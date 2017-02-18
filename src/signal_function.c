@@ -2,6 +2,7 @@
 
 GtkToggleButton *activeButton = NULL;
 pthread_t handler;
+GdkRGBA *color;
 
 G_MODULE_EXPORT void drawSignal (GtkToggleButton *drawButton)
 {
@@ -31,6 +32,8 @@ G_MODULE_EXPORT void togglebutton2 (GtkToggleButton *togglebutton2)
     activeButton = togglebutton2;
     printf("write\n");
     e = pthread_create(&handler, NULL, draw, NULL);
+    if (e != 0)
+      abort();
   }
   else
   {
@@ -84,13 +87,16 @@ G_MODULE_EXPORT void saveimageSignal(gpointer data)
     char *pathname;
     pathname = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (pSave));
     save(pathname);
-    /* save the output */
-//    printf("%s\n",pathname);
   }
 
   gtk_widget_destroy (pSave);
 }
-G_MODULE_EXPORT void colorSignal()
+G_MODULE_EXPORT void colorSignal(GtkColorChooser *ChooserColor)
 {
-  puts("color switch");
+  color = malloc(sizeof (GdkRGBA));
+  gtk_color_chooser_get_rgba(ChooserColor,color);
+  printf("%f\n",color->red * 255);
+  printf("%f\n",color->blue * 255);
+
+
 }
