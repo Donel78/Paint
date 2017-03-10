@@ -4,6 +4,12 @@ GtkToggleButton *activeButton = NULL;
 pthread_t handler;
 GdkRGBA *color;
 
+ void quitSignal()
+{
+	gtk_main_quit();
+
+}
+
 G_MODULE_EXPORT void drawSignal (GtkToggleButton *drawButton)
 {
   int e;
