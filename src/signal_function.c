@@ -22,16 +22,15 @@ G_MODULE_EXPORT void drawSignal (GtkToggleButton *drawButton)
   }
 }
 
-G_MODULE_EXPORT void togglebutton2 (GtkToggleButton *togglebutton2)
+G_MODULE_EXPORT void textSignal (GtkToggleButton *textButton)
 {
   int e;
-  if (gtk_toggle_button_get_active(togglebutton2) == 1)
+  if (gtk_toggle_button_get_active(textButton) == 1)
   {
-    if (activeButton != NULL && activeButton != togglebutton2) 
+    if (activeButton != NULL && activeButton != textButton) 
       gtk_toggle_button_set_active(activeButton, 0);
-    activeButton = togglebutton2;
-    printf("write\n");
-    e = pthread_create(&handler, NULL, draw, NULL);
+    activeButton = textButton;
+    e = pthread_create(&handler, NULL, text, NULL);
     if (e != 0)
       abort();
   }
@@ -74,8 +73,8 @@ G_MODULE_EXPORT void saveimageSignal(gpointer data)
   pSave = gtk_file_chooser_dialog_new ("Save File as ...",
       GTK_WINDOW(data),
       GTK_FILE_CHOOSER_ACTION_SAVE,
-      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-      GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+      "annuler", GTK_RESPONSE_CANCEL,
+      "enregistrer", GTK_RESPONSE_ACCEPT,
       NULL);
   gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (pSave), TRUE);
   gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (pSave), "Untitled.");

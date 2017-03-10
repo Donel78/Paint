@@ -8,6 +8,7 @@
 #include <pthread.h>
 #include <SDL/SDL.h>
 #include "SDL/SDL_image.h"
+#include <SDL/SDL_ttf.h>
 #include <string.h>
 
 //global
@@ -19,6 +20,7 @@ extern GdkRGBA *color;
 //paint function
 void *draw();
 void *rubber();
+void *text();
 void *load(char *image_path);
 void *save(char *save_path);
 

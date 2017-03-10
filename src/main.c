@@ -1,6 +1,7 @@
 #include "main.h"
 
 SDL_Surface *paint = NULL;
+GdkRGBA *color;
 
 
 int main(int argc, char *argv [])
@@ -9,6 +10,10 @@ int main(int argc, char *argv [])
   paint = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE|SDL_RESIZABLE);
   SDL_FillRect(paint, NULL, SDL_MapRGB(paint->format, 255, 255, 255));
   SDL_Flip(paint);
+  color = malloc(sizeof (GdkRGBA));
+  color->red = 0;
+  color ->blue = 0;
+  color->green = 0;
 
   GtkWidget *ToolWindow = NULL;
   GtkBuilder *builder = NULL;

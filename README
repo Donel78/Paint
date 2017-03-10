@@ -18,3 +18,6 @@ Sauvegarde de la surface SDL en format bmp
 6eme commit
 Ajout du changement de couleurs du tracer. Attention il faut d'abord choisir une couleur au debut
 sinon le programme segfault.
+
+7eme commit
+la couleur est noir pas défaut (le programme ne crash pu). Ajout d'une zone de texte sur la paint

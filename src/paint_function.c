@@ -85,8 +85,6 @@ void *draw()
   int y = 0;
   int continuer = 1;
   int is_pressed = 0;
-  printf("%f\n",color->red * 255);
-  puts("lol");
   while (continuer == 1)
   {
     while (SDL_WaitEvent(&event))
@@ -127,6 +125,81 @@ void *draw()
   pthread_exit(NULL);
 
 }
+void *text()
+{
+  SDL_Surface *text = NULL;
+  SDL_Surface *buffer = NULL;
+  TTF_Font *police = NULL;
+  SDL_Rect positionText;
+  SDL_Rect positionBuffer;
+  positionBuffer.x = 0;
+  positionBuffer.y = 0;
+  positionText.x = 50;
+  positionText.y = 50;
+  SDL_Color black = {255, 0, 0,42};
+  SDL_Init(SDL_INIT_VIDEO);
+  TTF_Init();
+  police = TTF_OpenFont("LongTime.ttf",25);
+
+  SDL_SaveBMP(paint,"tmpimage/painttmp.bmp");
+  buffer = SDL_LoadBMP("tmpimage/painttmp.bmp");
+  char mot[500];
+  int is_pressed = 0;
+
+  SDL_Event event;
+  size_t pos = 0;
+  int continuer = 1;
+  SDL_EnableUNICODE(1);
+  while (continuer == 1)
+  {
+    while (SDL_WaitEvent(&event))
+    {
+      switch (event.type)
+      {
+        case SDL_MOUSEBUTTONDOWN:
+          switch (event.button.button)
+          {
+            case SDL_BUTTON_LEFT:
+              is_pressed = 1;
+              positionText.x = event.button.x;
+              positionText.y = event.button.y;
+            break;
+          }
+          break;
+ 
+        case SDL_KEYDOWN:
+          switch (event.key.keysym.sym)
+          {
+            case SDLK_RETURN:
+              mot[pos] = '\n';
+              break;
+
+            case SDLK_ESCAPE:
+              continuer = 0;
+              break;
+
+            default:
+              printf("Touche %d enfoncée : %c\n",event.key.keysym.sym,event.key.keysym.unicode); 
+              mot[pos] = event.key.keysym.unicode;
+              printf("%c\n",mot[pos]);
+              pos++;
+              text = TTF_RenderText_Blended(police, mot, black);
+              printf("coord (%d,%d)\n", positionText.x, positionText.y);
+              SDL_BlitSurface(buffer,NULL,paint,&positionBuffer);
+              SDL_BlitSurface(text,NULL,paint, &positionText);
+              SDL_Flip(paint);
+
+              break;
+          }   
+      }
+    }
+  }
+
+
+  SDL_EnableUNICODE(0);
+  pthread_exit(NULL);
+  return 0;
+}
 
 void *load(char *image_path)
 {
@@ -143,7 +216,6 @@ void *load(char *image_path)
   if (SDL_BlitSurface(img, NULL, paint, NULL) < 0)
     warnx("BlitSurface error: %s\n",SDL_GetError());
   SDL_UpdateRect(paint ,0 ,0 ,img->w, img->h );
-
   return 0;
 }
 
