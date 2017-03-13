@@ -144,7 +144,7 @@ void *text()
   SDL_SaveBMP(paint,"tmpimage/painttmp.bmp");
   buffer = SDL_LoadBMP("tmpimage/painttmp.bmp");
   char mot[500];
-  int is_pressed = 0;
+//  int is_pressed = 0;
 
   SDL_Event event;
   size_t pos = 0;
@@ -160,7 +160,7 @@ void *text()
           switch (event.button.button)
           {
             case SDL_BUTTON_LEFT:
-              is_pressed = 1;
+  //            is_pressed = 1;
               positionText.x = event.button.x;
               positionText.y = event.button.y;
             break;
