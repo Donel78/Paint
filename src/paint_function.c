@@ -136,7 +136,7 @@ void *text()
   positionBuffer.y = 0;
   positionText.x = 50;
   positionText.y = 50;
-  SDL_Color black = {255, 0, 0,42};
+  SDL_Color black = {color->red * 255, color->green * 255, color->blue * 255,42};
   SDL_Init(SDL_INIT_VIDEO);
   TTF_Init();
   police = TTF_OpenFont("LongTime.ttf",25);
