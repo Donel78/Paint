@@ -122,3 +122,8 @@ void t4Signal()
 {
   taille = 10;
 }
+
+void b_wSignal()
+{
+  white_black();
+}

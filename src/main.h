@@ -24,6 +24,7 @@ void *rubber();
 void *text();
 void *load(char *image_path);
 void *save(char *save_path);
+void white_black();
 
 //signal function
 //G_MODULE_EXPORT void drawSignal (GtkToggleButton *drawButton);

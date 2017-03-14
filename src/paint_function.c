@@ -13,11 +13,16 @@ static inline void drawline(int x0, int x1, int y0, int y1, Uint32 color)
   {
     for (int i = 0; i <= taille; i++)
     {
-      putpixel(paint, x0 + i, y0 , color);
-      putpixel(paint, x0 + i , y0  , color);
-      putpixel(paint, x0 , y0 + i , color);
-      putpixel(paint, x0 , y0 + i , color);
-
+        if (x0 + i < paint->w)
+          {
+            putpixel(paint, x0 + i, y0 , color);
+           putpixel(paint, x0 + i , y0  , color);
+          }
+        if (y0 + i < paint->h)
+        {
+           putpixel(paint, x0 , y0 + i , color);
+           putpixel(paint, x0 , y0 + i , color);
+        }
     }
     if (x0 == x1 && y0 == y1) break;
     e2 = err;
@@ -232,4 +237,21 @@ void *save(char *save_path)
   if (r != 0)
     puts("err");
   return 0;
+}
+
+void white_black()
+{
+  Uint32 myPix = 0;
+  Uint8 r = 0;
+  Uint8 g = 0;
+  Uint8 b = 0;
+  for (int i = 0; i < paint->w; i++)
+  {
+    for (int j = 0; j < paint->h; j++)
+    {
+      myPix = getpixel(paint, i, j);
+      SDL_GetRGB(myPix, paint->format, &r, &g, &b);
+      putpixel(paint, i, j, SDL_MapRGB(paint->format, (r + g + b) / 3, (r + g + b) / 3, (r + g + b) / 3));
+    }
+  }
 }
