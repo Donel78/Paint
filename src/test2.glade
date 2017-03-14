@@ -26,23 +26,6 @@
     <property name="can_focus">False</property>
     <property name="icon_name">gtk-stop</property>
   </object>
-  <object class="GtkListStore" id="liststore1">
-    <columns>
-      <!-- column-name lol -->
-      <column type="GtkButtonsType"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">yes-no</col>
-      </row>
-      <row>
-        <col id="0">ok</col>
-      </row>
-      <row>
-        <col id="0">close</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkWindow" id="ToolWindow">
     <property name="can_focus">False</property>
     <child>
@@ -224,15 +207,60 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBox" id="combobox2">
+                      <object class="GtkGrid" id="grid3">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="model">liststore1</property>
                         <child>
-                          <object class="GtkCellRendererText" id="cellrenderertext1"/>
-                          <attributes>
-                            <attribute name="text">0</attribute>
-                          </attributes>
+                          <object class="GtkButton" id="1Button">
+                            <property name="label" translatable="yes">1</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <signal name="clicked" handler="t1Signal" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="3Button">
+                            <property name="label" translatable="yes">3</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <signal name="clicked" handler="t3Signal" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="4Button">
+                            <property name="label" translatable="yes">4</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <signal name="clicked" handler="t4Signal" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="2Button">
+                            <property name="label" translatable="yes">2</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <signal name="clicked" handler="t2Signal" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">0</property>
+                          </packing>
                         </child>
                       </object>
                       <packing>
@@ -339,5 +367,22 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkListStore" id="liststore1">
+    <columns>
+      <!-- column-name lol -->
+      <column type="GtkButtonsType"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">yes-no</col>
+      </row>
+      <row>
+        <col id="0">ok</col>
+      </row>
+      <row>
+        <col id="0">close</col>
+      </row>
+    </data>
   </object>
 </interface>

@@ -16,19 +16,20 @@ extern pthread_t handler;
 extern GtkToggleButton *activeButton; 
 extern SDL_Surface *paint;
 extern GdkRGBA *color;
+extern int taille;
 
 //paint function
-void *draw();
+void  *draw();
 void *rubber();
 void *text();
 void *load(char *image_path);
 void *save(char *save_path);
 
 //signal function
-G_MODULE_EXPORT void drawSignal (GtkToggleButton *drawButton);
-G_MODULE_EXPORT void togglebutton2 (GtkToggleButton *togglebutton2);
-G_MODULE_EXPORT void togglebutton2 (GtkToggleButton *rubberButton);
-G_MODULE_EXPORT void menu_reponse (GtkMenuBar * menubar);
+//G_MODULE_EXPORT void drawSignal (GtkToggleButton *drawButton);
+//G_MODULE_EXPORT void togglebutton2 (GtkToggleButton *togglebutton2);
+//G_MODULE_EXPORT void togglebutton2 (GtkToggleButton *rubberButton);
+//G_MODULE_EXPORT void menu_reponse (GtkMenuBar * menubar);
 
 //sdl_function
 Uint32 getpixel(SDL_Surface *surface, unsigned x, unsigned y);

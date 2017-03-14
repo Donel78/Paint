@@ -3,6 +3,7 @@
 GtkToggleButton *activeButton = NULL;
 pthread_t handler;
 GdkRGBA *color;
+int taille = 0;
 
 void quitSignal()
 {
@@ -103,4 +104,21 @@ G_MODULE_EXPORT void colorSignal(GtkColorChooser *ChooserColor)
   printf("%f\n",color->blue * 255);
 
 
+}
+
+void t1Signal()
+{
+  taille = 0;
+}
+void t2Signal()
+{
+  taille = 3;
+}
+void t3Signal()
+{
+  taille = 6;
+}
+void t4Signal()
+{
+  taille = 10;
 }

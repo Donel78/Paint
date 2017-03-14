@@ -11,7 +11,14 @@ static inline void drawline(int x0, int x1, int y0, int y1, Uint32 color)
 
   for(;;)
   {
-    putpixel(paint, x0, y0, color);
+    for (int i = 0; i <= taille; i++)
+    {
+      putpixel(paint, x0 + i, y0 , color);
+      putpixel(paint, x0 + i , y0  , color);
+      putpixel(paint, x0 , y0 + i , color);
+      putpixel(paint, x0 , y0 + i , color);
+
+    }
     if (x0 == x1 && y0 == y1) break;
     e2 = err;
     if (e2 >- dx)

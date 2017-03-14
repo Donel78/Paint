@@ -21,3 +21,6 @@ sinon le programme segfault.
 
 7eme commit
 la couleur est noir pas défaut (le programme ne crash pu). Ajout d'une zone de texte sur la paint
+
+11eme commit
+On peut maintenant changer la taille du curseur du pinceau et de la gomme
