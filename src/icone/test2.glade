@@ -2,29 +2,58 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.6"/>
-  <object class="GtkImage" id="image1">
+  <object class="GtkImage" id="back_picture">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="margin_left">1</property>
-    <property name="pixel_size">44</property>
-    <property name="icon_name">applications-drawing</property>
+    <property name="pixbuf">flehce_avant.png</property>
   </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixel_size">44</property>
-    <property name="icon_name">font-x-generic</property>
-  </object>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixel_size">47</property>
-    <property name="icon_name">start-here</property>
-  </object>
-  <object class="GtkImage" id="image5">
+  <object class="GtkImage" id="close_picture">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">gtk-stop</property>
+  </object>
+  <object class="GtkImage" id="draw_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">1</property>
+    <property name="pixbuf">crayon</property>
+    <property name="pixel_size">44</property>
+  </object>
+  <object class="GtkImage" id="droite_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">droite.PNG</property>
+  </object>
+  <object class="GtkImage" id="filling_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="xpad">8</property>
+    <property name="pixbuf">filling</property>
+  </object>
+  <object class="GtkImage" id="foward_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">flehce_arrière.png</property>
+  </object>
+  <object class="GtkImage" id="l1_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">trait1.PNG</property>
+  </object>
+  <object class="GtkImage" id="l2_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">trait2.PNG</property>
+  </object>
+  <object class="GtkImage" id="l3_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">trait3.PNG</property>
+  </object>
+  <object class="GtkImage" id="l4_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">trait4.PNG</property>
   </object>
   <object class="GtkListStore" id="liststore1">
     <columns>
@@ -43,6 +72,12 @@
       </row>
     </data>
   </object>
+  <object class="GtkImage" id="pipette_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="xpad">3</property>
+    <property name="pixbuf">pipette</property>
+  </object>
   <object class="GtkRadioButton" id="radiobutton1">
     <property name="label" translatable="yes">radiobutton</property>
     <property name="visible">True</property>
@@ -51,6 +86,43 @@
     <property name="xalign">0</property>
     <property name="active">True</property>
     <property name="draw_indicator">True</property>
+  </object>
+  <object class="GtkImage" id="rectangle_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">rectanglePNG.PNG</property>
+  </object>
+  <object class="GtkImage" id="rond_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">cercle.PNG</property>
+  </object>
+  <object class="GtkImage" id="rubber_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">gomme</property>
+    <property name="pixel_size">47</property>
+  </object>
+  <object class="GtkImage" id="select_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">selectionner.PNG</property>
+  </object>
+  <object class="GtkImage" id="swag_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">swag.PNG</property>
+  </object>
+  <object class="GtkImage" id="text_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixel_size">44</property>
+    <property name="icon_name">font-x-generic</property>
+  </object>
+  <object class="GtkImage" id="triangle_picture">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">triangle2.PNG</property>
   </object>
   <object class="GtkWindow" id="ToolWindow">
     <property name="can_focus">False</property>
@@ -102,6 +174,7 @@
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                     <property name="group">radiobutton1</property>
+                    <signal name="clicked" handler="nofilterSignal" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -178,7 +251,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="image">image5</property>
+                <property name="image">close_picture</property>
                 <signal name="clicked" handler="quitSignal" swapped="no"/>
               </object>
               <packing>
@@ -207,10 +280,11 @@
                 <property name="can_focus">False</property>
                 <child>
                   <object class="GtkToggleButton" id="drawButton">
+                    <property name="height_request">-1</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="image">image1</property>
+                    <property name="image">draw_picture</property>
                     <property name="always_show_image">True</property>
                     <signal name="toggled" handler="drawSignal" swapped="no"/>
                   </object>
@@ -228,7 +302,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="image">image3</property>
+                        <property name="image">rubber_picture</property>
                         <property name="always_show_image">True</property>
                         <signal name="toggled" handler="rubberSignal" swapped="no"/>
                       </object>
@@ -242,12 +316,38 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
-                          <object class="GtkButton" id="1Button">
-                            <property name="label" translatable="yes">1</property>
+                          <object class="GtkButton" id="backButton">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
-                            <signal name="clicked" handler="t1Signal" swapped="no"/>
+                            <property name="image">back_picture</property>
+                            <signal name="clicked" handler="backSignal" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">2</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="fowardButton">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="image">foward_picture</property>
+                            <signal name="clicked" handler="fowardSignal" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">2</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkToggleButton" id="l1Button">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="image">l1_picture</property>
+                            <signal name="toggled" handler="l1Signal" swapped="no"/>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -255,12 +355,25 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkButton" id="3Button">
-                            <property name="label" translatable="yes">3</property>
+                          <object class="GtkToggleButton" id="l2Button">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
-                            <signal name="clicked" handler="t3Signal" swapped="no"/>
+                            <property name="image">l2_picture</property>
+                            <signal name="toggled" handler="l2Signal" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkToggleButton" id="l3Button">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="image">l3_picture</property>
+                            <signal name="toggled" handler="l3Signal" swapped="no"/>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -268,29 +381,16 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkButton" id="4Button">
-                            <property name="label" translatable="yes">4</property>
+                          <object class="GtkToggleButton" id="l4Button">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
-                            <signal name="clicked" handler="t4Signal" swapped="no"/>
+                            <property name="image">l4_picture</property>
+                            <signal name="toggled" handler="l4Signal" swapped="no"/>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="top_attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="2Button">
-                            <property name="label" translatable="yes">2</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <signal name="clicked" handler="t2Signal" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">0</property>
                           </packing>
                         </child>
                       </object>
@@ -302,6 +402,84 @@
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkGrid" id="grid4">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkToggleButton" id="triangleButton">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="image">triangle_picture</property>
+                        <signal name="toggled" handler="triangleSignal" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="rectangleButton">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="image">rectangle_picture</property>
+                        <signal name="toggled" handler="rectangleSignal" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="rondButton">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="image">rond_picture</property>
+                        <signal name="toggled" handler="rondSignal" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">2</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="droiteButton">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="image">droite_picture</property>
+                        <signal name="toggled" handler="droiteSignal" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="swagButton">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="image">swag_picture</property>
+                        <signal name="toggled" handler="swagSignal" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left_attach">2</property>
                     <property name="top_attach">0</property>
                   </packing>
                 </child>
@@ -325,7 +503,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="image">image2</property>
+                        <property name="image">text_picture</property>
                         <property name="always_show_image">True</property>
                         <signal name="toggled" handler="textSignal" swapped="no"/>
                       </object>
@@ -335,14 +513,41 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button1">
-                        <property name="label" translatable="yes">button</property>
+                      <object class="GtkToggleButton" id="fillingButton">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="image">filling_picture</property>
+                        <signal name="toggled" handler="fillingSignal" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="pipetteButton">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="image">pipette_picture</property>
+                        <signal name="toggled" handler="pipetteSignal" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">2</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="SelectButton">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="image">select_picture</property>
+                        <signal name="toggled" handler="selectSignal" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">3</property>
                         <property name="top_attach">0</property>
                       </packing>
                     </child>
@@ -353,7 +558,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkImage" id="image4">
+                  <object class="GtkImage" id="logo_picture">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="xpad">118</property>

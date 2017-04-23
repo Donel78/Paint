@@ -2,10 +2,14 @@
 
 SDL_Surface *paint = NULL;
 GdkRGBA *color;
-
+SDL_Surface *tabsdl[1000];
+int nosdl = 0;
 
 int main(int argc, char *argv [])
 {
+
+  XInitThreads();
+
   SDL_Init(SDL_INIT_VIDEO);
   paint = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE|SDL_RESIZABLE);
   SDL_FillRect(paint, NULL, SDL_MapRGB(paint->format, 255, 255, 255));
@@ -15,6 +19,10 @@ int main(int argc, char *argv [])
   color ->blue = 0;
   color->green = 0;
 
+  SDL_SaveBMP(paint, "tmpimage/back.bmp");
+  tabsdl[nosdl] = IMG_Load("tmpimage/back.bmp");
+  nosdl++;
+
   GtkWidget *ToolWindow = NULL;
   GtkBuilder *builder = NULL;
   gchar *filename = NULL;
@@ -23,7 +31,7 @@ int main(int argc, char *argv [])
 
   gtk_init(&argc,&argv);
   builder = gtk_builder_new();
-  filename = g_build_filename("test2.glade",NULL);
+  filename = g_build_filename("icone/test2.glade",NULL);
   gtk_builder_add_from_file (builder,filename,&error);
   g_free(filename);
   if(error)

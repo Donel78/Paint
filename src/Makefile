@@ -3,11 +3,11 @@
 CC=gcc
  
 CPPFLAGS= `pkg-config --cflags --libs sdl gtk+-3.0 gmodule-2.0`
-CFLAGS= -Wall -Wextra -std=c99 -O3
+CFLAGS= -Wall -Wextra -std=c99 -O0
 LDFLAGS=
-LDLIBS= `pkg-config --libs sdl gtk+-3.0 gmodule-2.0` -lSDL_image -lSDL_ttf
+LDLIBS= `pkg-config --libs sdl gtk+-3.0 gmodule-2.0` -lSDL_image -lSDL_ttf -lX11
  
-SRC= main.c paint_function.c signal_function.c sdl_function.c
+SRC= main.c paint_function.c signal_function.c sdl_function.c stack.c
 OBJ= ${SRC:.c=.o}
  
 all: main
