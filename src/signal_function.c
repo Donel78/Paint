@@ -224,7 +224,7 @@ void rectangleSignal (GtkToggleButton *rectangleButton)
     if (activeButton != NULL && activeButton != rectangleButton) 
       gtk_toggle_button_set_active(activeButton, 0);
     activeButton = rectangleButton;
-    e = pthread_create(&handler, NULL, rectangle, NULL);
+    e = pthread_create(&handler, NULL, rect, NULL);
     if (e != 0)
       abort();
   }
@@ -233,6 +233,25 @@ void rectangleSignal (GtkToggleButton *rectangleButton)
        pthread_cancel(handler);
   }
 }
+
+void croixSignal (GtkToggleButton *croixButton)
+{
+  int e = 0;
+  if (gtk_toggle_button_get_active(croixButton) == 1)
+  {
+    if (activeButton != NULL && activeButton != croixButton) 
+      gtk_toggle_button_set_active(activeButton, 0);
+    activeButton = croixButton;
+    e = pthread_create(&handler, NULL, croix, NULL);
+    if (e != 0)
+      abort();
+  }
+  else
+  {
+       pthread_cancel(handler);
+  }
+}
+
 
 void triangleSignal (GtkToggleButton *triangleButton)
 {
@@ -260,7 +279,7 @@ void rondSignal (GtkToggleButton *rondButton)
     if (activeButton != NULL && activeButton != rondButton) 
       gtk_toggle_button_set_active(activeButton, 0);
     activeButton = rondButton;
-    e = pthread_create(&handler, NULL, cercle, NULL);
+    e = pthread_create(&handler, NULL, circle, NULL);
     if (e != 0)
       abort();
   }

@@ -642,6 +642,294 @@ void *swag()
 }
 
 
+
+
+/**************************** GAEL ET TIMOti ****************************/
+
+
+
+
+
+static inline void _line(int x1, int x2, int y1, int y2, Uint32 color) {
+  int x,y;		
+  int Dx,Dy;
+  int xincr,yincr;
+  int erreur;
+  int i;
+  
+  Dx = abs(x2-x1);
+  Dy = abs(y2-y1);
+  if(x1<x2)
+    xincr = 1;
+  else
+    xincr = -1;
+  if(y1<y2)
+    yincr = 1;
+  else			
+    yincr = -1;
+  
+  x = x1;
+  y = y1;
+  if(Dx>Dy)
+    {
+      erreur = Dx/2;
+      for(i=0;i<Dx;i++)
+	{
+	  x += xincr;
+	  erreur += Dy;
+	  if(erreur>Dx)
+	    {
+	      erreur -= Dx;
+	      y += yincr;
+	    }
+	  putpixel(paint,x, y,color);
+	}
+    }
+  else
+    {
+      erreur = Dy/2;
+      for(i=0;i<Dy;i++)
+	{
+	  y += yincr;
+	  erreur += Dx;
+	  
+	  if(erreur>Dy)
+	    {
+	      erreur -= Dy;
+	      x += xincr;
+	    }
+	  putpixel(paint,x, y,color);
+	}
+    }
+}
+static inline void _circle(int x1, int y1, int radius, Uint32 color) {
+  int d,x,y,x2m1,max;
+  y=radius;
+  d= -radius;
+  x2m1= -1;
+  max = (int)(radius/sqrt(2.0));
+  for(x=0;x<=max;x++)
+    {  
+      x2m1 += 2;
+      d+= x2m1;
+      if (d>=0) 
+        {
+	  y--;
+	  d -= (y<<1);
+        }
+      putpixel(paint,x1+x,y1+y,color);
+      putpixel(paint,x1-x,y1+y,color);
+      putpixel(paint,x1+x,y1-y,color);
+      putpixel(paint,x1-x,y1-y,color);
+      putpixel(paint,x1+y,y1+x,color);
+      putpixel(paint,x1-y,y1+x,color);
+      putpixel(paint,x1+y,y1-x,color);
+      putpixel(paint,x1-y,y1-x,color);
+    }
+}
+
+void *line() {
+  SDL_Event event;
+  int x1 = 0;
+  int x = 0;
+  int y1 = 0;
+  int y = 0;
+  int continuer = 1;
+  int is_pressed = 0;
+  while (continuer == 1)
+  {
+    while (SDL_WaitEvent(&event))
+    {
+      switch (event.type)
+      {
+        case SDL_QUIT:
+          continuer = 0;
+          break;
+        case SDL_MOUSEBUTTONDOWN:
+          switch (event.button.button)
+          {
+            case SDL_BUTTON_LEFT:
+              is_pressed = 1;
+              x1 = event.button.x;
+              y1 = event.button.y;
+            break;
+          }
+        case SDL_MOUSEMOTION:
+          if (is_pressed == 1)
+          {
+            x = event.button.x;
+            y = event.button.y;
+	    //x1 = x;
+	    //y1 = y;
+          }
+          break;
+        case SDL_MOUSEBUTTONUP:
+	  _line(x1, x, y1, y, SDL_MapRGB(paint->format, color->red, color->green,color->blue));
+	   SDL_Flip(paint);
+	   is_pressed = 0;
+	   SDL_SaveBMP(paint,"tmpimage/back.bmp");
+	   tabsdl[nosdl] = IMG_Load("tmpimage/back.bmp");
+	   nosdl++;
+	   break;
+      }
+    }
+  }
+  pthread_exit(NULL);
+}
+
+void *rect() {
+  SDL_Event event;
+  int x1 = 0;
+  int x = 0;
+  int y1 = 0;
+  int y = 0;
+  int continuer = 1;
+  int is_pressed = 0;
+  while (continuer == 1)
+    {
+      while (SDL_WaitEvent(&event))
+    {
+      switch (event.type)
+	{
+	case SDL_QUIT:
+          continuer = 0;
+          break;
+	case SDL_MOUSEBUTTONDOWN:
+          switch (event.button.button)
+	    {
+	    case SDL_BUTTON_LEFT:
+              is_pressed = 1;
+              x1 = event.button.x;
+              y1 = event.button.y;
+	      break;
+	    }
+	case SDL_MOUSEMOTION:
+          if (is_pressed == 1)
+	    {
+	      x = event.button.x;
+	      y = event.button.y;
+	      //x1 = x;
+	      //y1 = y;
+	      
+	    }
+          break;
+	case SDL_MOUSEBUTTONUP:
+	  _line(x1, x1, y1, y, SDL_MapRGB(paint->format, color->red, color->green,color->blue));
+	  _line(x1, x, y1, y1, SDL_MapRGB(paint->format, color->red, color->green,color->blue));
+	  _line(x, x, y1, y, SDL_MapRGB(paint->format, color->red, color->green,color->blue));
+	  _line(x1, x, y, y, SDL_MapRGB(paint->format, color->red, color->green,color->blue));
+	  SDL_Flip(paint);
+	  is_pressed = 0;
+	  SDL_SaveBMP(paint,"tmpimage/back.bmp");
+	  tabsdl[nosdl] = IMG_Load("tmpimage/back.bmp");
+	  nosdl++;
+	  break;
+	}
+    }
+  }
+  pthread_exit(NULL);
+}
+
+
+void *circle() {
+  SDL_Event event;
+  int x1 = 0;
+  int x = 0;
+  int y1 = 0;
+  int y = 0;
+  int continuer = 1;
+  int is_pressed = 0;
+  while (continuer == 1)
+    {
+      while (SDL_WaitEvent(&event))
+    {
+      switch (event.type)
+	{
+	case SDL_QUIT:
+          continuer = 0;
+          break;
+	case SDL_MOUSEBUTTONDOWN:
+          switch (event.button.button)
+	    {
+	    case SDL_BUTTON_LEFT:
+              is_pressed = 1;
+              x1 = event.button.x;
+              y1 = event.button.y;
+	      break;
+	    }
+	case SDL_MOUSEMOTION:
+          if (is_pressed == 1)
+	    {
+	      x = event.button.x;
+	      y = event.button.y;
+	      //x1 = x;
+	      //y1 = y;
+	      
+	    }
+          break;
+	case SDL_MOUSEBUTTONUP:
+	  
+	  _circle(x1, y1, abs(x1-x)+y-y, SDL_MapRGB(paint->format, color->red, color->green,color->blue));
+	  SDL_Flip(paint);
+	  is_pressed = 0;
+	  SDL_SaveBMP(paint,"tmpimage/back.bmp");
+	  tabsdl[nosdl] = IMG_Load("tmpimage/back.bmp");
+	  nosdl++;
+	  break;
+	}
+    }
+  }
+  pthread_exit(NULL);
+}
+void *croix() {
+  SDL_Event event;
+  int x1 = 0;
+  int x = 0;
+  int y1 = 0;
+  int y = 0;
+  int continuer = 1;
+  int is_pressed = 0;
+  while (continuer == 1)
+  {
+    while (SDL_WaitEvent(&event))
+    {
+      switch (event.type)
+      {
+        case SDL_QUIT:
+          continuer = 0;
+          break;
+        case SDL_MOUSEBUTTONDOWN:
+          switch (event.button.button)
+          {
+            case SDL_BUTTON_LEFT:
+              is_pressed = 1;
+              x1 = event.button.x;
+              y1 = event.button.y;
+            break;
+          }
+        case SDL_MOUSEMOTION:
+          if (is_pressed == 1)
+          {
+            x = event.button.x;
+            y = event.button.y;
+	    //x1 = x;
+	    //y1 = y;
+          }
+          break;
+        case SDL_MOUSEBUTTONUP:
+	  _line(x1, x, y, y1, SDL_MapRGB(paint->format, color->red, color->green,color->blue));
+	  _line(x1, x, y1, y, SDL_MapRGB(paint->format, color->red, color->green,color->blue));
+	   SDL_Flip(paint);
+	   is_pressed = 0;
+	   SDL_SaveBMP(paint,"tmpimage/back.bmp");
+	   tabsdl[nosdl] = IMG_Load("tmpimage/back.bmp");
+	   nosdl++;
+	   break;
+      }
+    }
+  }
+  pthread_exit(NULL);
+}
 void setPixel(int x, int y, Uint32 coul)
 { 
   *((Uint32*)(paint->pixels) + x + y * paint->w) = coul;                                               
@@ -649,29 +937,29 @@ void setPixel(int x, int y, Uint32 coul)
 
 void setPixelVerif(int x, int y, Uint32 coul)
 {                                                                                                            
-	if (x >= 0 && x < paint->w &&                                                                             
-			y >= 0 && y < paint->h)                                                                             
-		setPixel(x, y, coul);                                                                                   
+  if (x >= 0 && x < paint->w &&                                                                             
+      y >= 0 && y < paint->h)                                                                             
+    setPixel(x, y, coul);                                                                                   
 }                                                                                                          
 
 void ligneHorizontale(int x, int y, int w, Uint32 coul)
 {                                                                                     
   SDL_Rect r;                                                                                               
-	r.x = x;                                                                                                  
-	r.y = y;                                                                                                  
-	r.w = w;                                                                                                  
-	r.h = 1;                                                                                                  
-	SDL_FillRect(paint, &r, coul);                                                                            
+  r.x = x;                                                                                                  
+  r.y = y;                                                                                                  
+  r.w = w;                                                                                                  
+  r.h = 1;                                                                                                  
+  SDL_FillRect(paint, &r, coul);                                                                            
 }                                                                                                          
 
 void ligneVerticale(int x, int y, int h, Uint32 coul)                                                        
 {                                                                                                         
   SDL_Rect r;                                                                                               
-	r.x = x;                                                                                                  
-	r.y = y;                                                                                                  
-	r.w = 1;                                                                                                  
-	r.h = h;                                                                                                  
-	SDL_FillRect(paint, &r, coul);                                                                            
+  r.x = x;                                                                                                  
+  r.y = y;                                                                                                  
+  r.w = 1;                                                                                                  
+  r.h = h;                                                                                                  
+  SDL_FillRect(paint, &r, coul);                                                                            
 }                                                                                                    
 
 void _rectangle(int x, int y, int w, int h, Uint32 coul)                                                    
@@ -798,129 +1086,7 @@ void *triangle()
 		}                                                                                                     
 	}                                                                                                         
 	pthread_exit(NULL);                                                                                       
-}                 
-
-void _cercle(int cx, int cy, int rayon, int coul)                                                            
-{                                                                                                            
-	int d, y, x;                                                                                              
-  d = 3 - (2 * rayon);                                                                                    
-	x = 0;                                                                                                   
-	y = rayon;                                                                                                
-
-	while (y >= x) {                                                                                          
-		setPixelVerif(cx + x, cy + y, coul);                                                                  
-		setPixelVerif(cx + y, cy + x, coul);                                                                  
-		setPixelVerif(cx - x, cy + y, coul);                                                                  
-		setPixelVerif(cx - y, cy + x, coul);                                                                  
-		setPixelVerif(cx + x, cy - y, coul);                                                                  
-		setPixelVerif(cx + y, cy - x, coul);                                                                  
-		setPixelVerif(cx - x, cy - y, coul);                                                                  
-		setPixelVerif(cx - y, cy - x, coul);                                                                     
-
-		if (d < 0)                                                                                            
-			d = d + (4 * x) + 6;                                                                              
-		else {                                                                                                
-			d = d + 4 * (x - y) + 10;                                                                         
-			y--;                                                                                              
-		}                                                                                                     
-
-		x++;                                                                                                  
-	}                                                                                                         
-}                  
-
-
-
-void *cercle()                                                                                               
-{                                                                                                            
-	SDL_Event event;                                                                                          
-	int cx = 0;                                                                                                
-	int cy = 0;                                                                                               
-	int continuer = 1;                                                                                        
-	int is_pressed = 0;                                                                                       
-	while (continuer == 1)                                                                                    
-	{                                                                                                         
-		while (SDL_WaitEvent(&event))                                                                         
-		{                                                                                                     
-			switch (event.type)                                                                               
-			{                                                                                                 
-				case SDL_QUIT:                                                                                
-					continuer = 0;                                                                            
-					break;                                                                                    
-				case SDL_MOUSEBUTTONDOWN:                                                                     
-					switch (event.button.button)                                                              
-					{                                                                                         
-						case SDL_BUTTON_LEFT:                                                                 
-							is_pressed = 1;                                                                   
-							cx = event.button.x;                                                              
-							cy = event.button.y;                                                              
-							break;                                                                            
-					}                                                                                         
-				case SDL_MOUSEMOTION:                                                                         
-					if (is_pressed == 1)                                                                      
-					{                                                                                         
-						cx = event.button.x;                                                                  
-						cy = event.button.y;                                                                  
-
-		      _cercle(cx,cy,50,SDL_MapRGB(paint->format, color->red * 255, color->green * 255,color->blue * 255));
-						SDL_Flip(paint);                                                                     
-					}                                                                                         
-					break;                                                                                    
-				case SDL_MOUSEBUTTONUP:                                                                       
-					is_pressed = 0;     
-			}                                                                                                 
-		}                                                                                                     
-	}                                                                                                         
-	pthread_exit(NULL);                                                                                       
-}                                                                                                            
-
-
-void *rectangle()                                                                                            
-{                                                                                                            
-	SDL_Event event;                                                                                          
-	int x = 0;                                                                                                
-	int y = 0;                                                                                                
-	int continuer = 1;                                                                                        
-	int is_pressed = 0;                                                                                       
-	while (continuer == 1)                                                                                    
-	{                                                                                                         
-		while (SDL_WaitEvent(&event))                                                                         
-		{                                                                                                     
-			switch (event.type)                                                                               
-			{                                                                                                 
-				case SDL_QUIT:                                                                                
-					continuer = 0;                                                                            
-					break;                                                                                    
-				case SDL_MOUSEBUTTONDOWN:                                                                     
-					switch (event.button.button)                                                              
-					{                                                                                         
-						case SDL_BUTTON_LEFT:                                                                 
-							is_pressed = 1;                                                                   
-							x = event.button.x;                                                               
-							y = event.button.y;                                                               
-							break;                                                                            
-					}                                                                                         
-				case SDL_MOUSEMOTION:                                                                         
-					if (is_pressed == 1)                                                                      
-					{                                                                                         
-						x = event.button.x;                                                                   
-						y = event.button.y;                                                                   
-            _rectangle(x,y, 50,50,SDL_MapRGB(paint->format, color->red * 255, color->green * 255,color->blue * 255));
-            SDL_Flip(paint);                                                                      
-					}                                                                                         
-					break;                                                                                    
-				case SDL_MOUSEBUTTONUP:                                                                       
-					is_pressed = 0;    
-			}                                                                                                 
-		}                                                                                                     
-	}                                                                                                         
-	pthread_exit(NULL);                                                                                       
-} 
-
-
-
-
-
-
+}                
 
 
 

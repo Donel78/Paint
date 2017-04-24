@@ -11,6 +11,7 @@
 #include <SDL/SDL_ttf.h>
 #include <string.h>
 #include <X11/Xlib.h>
+#include <math.h>
 
 //global
 extern pthread_t handler;
@@ -34,10 +35,12 @@ void *save(char *save_path);
 void white_black();
 void no_filter();
 void *getcolor();
-void *droite();
+
 void *swag();
-void *rectangle();
-void *cercle();
+void *rect();
+void *circle();
+void *croix();
+void *droite();
 void *triangle();
 
 
