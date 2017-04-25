@@ -306,7 +306,7 @@ void *mySelect()
   int continuer = 1;
   int is_pressed = 0;
   int rec_move = 0;
-  int t = taille;;
+  //int t = taille;;
   //int is_moving = 0;
   SDL_Surface *rec = NULL;
   SDL_Rect rec_saved;

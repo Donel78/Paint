@@ -131,7 +131,7 @@ void backSignal()
   SDL_Rect position;
   position.x = 0;
   position.y = 0;
-  printf("%d\n",nosdl);
+  //printf("%d\n",nosdl);
   if (nosdl <= 0)
   {
     return;
@@ -150,7 +150,7 @@ void fowardSignal()
   SDL_Rect position;
   position.x = 0;
   position.y = 0;
-  printf("%d\n",nosdl);
+//  printf("%d\n",nosdl);
   if (tabsdl[nosdl] == NULL)
   {
     return;
