@@ -306,6 +306,7 @@ void *mySelect()
   int continuer = 1;
   int is_pressed = 0;
   int rec_move = 0;
+  int t = taille;;
   //int is_moving = 0;
   SDL_Surface *rec = NULL;
   SDL_Rect rec_saved;
@@ -344,6 +345,11 @@ void *mySelect()
             if (rec_move == 0)
             {
               SDL_BlitSurface(rec, NULL, paint, &positionRec);
+              taille = 0;
+              color->red = 0;
+              color->green = 0;
+              color->blue = 0;
+
               drawline(x1, x1, y1, y, SDL_MapRGB(paint->format, color->red, color->green,color->blue));
               drawline(x1, x, y1, y1, SDL_MapRGB(paint->format, color->red, color->green,color->blue));
               drawline(x1, x, y, y, SDL_MapRGB(paint->format, color->red, color->green,color->blue));
@@ -385,8 +391,8 @@ void *mySelect()
           }
           else if (rec_move == 1)
           {
-            tabsdl[nosdl] = IMG_Load("tmpimage/back.bmp");
-            nosdl++;
+              tabsdl[nosdl] = IMG_Load("tmpimage/back.bmp");
+              nosdl++;
             //  is_moving = 0;
               rec_move = 0;
               rec_saved.x++;
@@ -396,7 +402,6 @@ void *mySelect()
               SDL_FillRect(paint, &rec_saved, SDL_MapRGB(paint->format, 255, 255, 255));
               SDL_BlitSurface(rec, &rec_saved, paint, &rec_new);
               SDL_Flip(paint);
-
           }
           break;
       }
@@ -493,6 +498,9 @@ void *load(char *image_path)
   if (SDL_BlitSurface(img, NULL, paint, NULL) < 0)
     warnx("BlitSurface error: %s\n",SDL_GetError());
   SDL_UpdateRect(paint ,0 ,0 ,img->w, img->h );
+  tabsdl[nosdl] = IMG_Load("tmpimage/back.bmp");
+  nosdl++;
+
   return 0;
 }
 
