@@ -9,6 +9,7 @@
 #include <SDL/SDL.h>
 #include "SDL/SDL_image.h"
 #include <SDL/SDL_ttf.h>
+#include <SDL/SDL_rotozoom.h>
 #include <string.h>
 #include <X11/Xlib.h>
 #include <math.h>
@@ -22,6 +23,7 @@ extern SDL_Surface *tabsdl[1000];
 extern GdkRGBA *color;
 extern int taille;
 extern int nosdl;
+extern int filtre;
 
 //paint function
 void  *draw();
@@ -33,6 +35,7 @@ void _filling(int x, int y, Uint32 mypix, Uint32 couleur);
 void *load(char *image_path);
 void *save(char *save_path);
 void white_black();
+void neg_filter();
 void no_filter();
 void *getcolor();
 

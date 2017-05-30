@@ -4,6 +4,7 @@ SDL_Surface *paint;
 SDL_Surface *img;
 SDL_Surface *tabsdl[1000];
 int nosdl;
+int filtre = 0;
 
 void _filling(int x, int y, Uint32 mypix, Uint32 couleur)
 {
@@ -512,18 +513,47 @@ void *save(char *save_path)
   return 0;
 }
 
+void neg_filter()
+{
+  if (filtre == 0)  
+    {
+      SDL_SaveBMP(paint,"tmpimage/painttmp.bmp");
+      filtre = 1;
+    }
+  Uint32 myPix = 0;
+  Uint8 r = 0;
+  Uint8 g = 0;
+  Uint8 b = 0;
+  for (int i = 0; i < paint->w; i++)
+  {
+    for (int j = 0; j < paint->h; j++)
+    {
+      myPix = getpixel(paint, i, j);
+      SDL_GetRGB(myPix, paint->format, &r, &g, &b);
+      r = 255 - r;
+      g = 255 - g;
+      b = 255 - b;
+      putpixel(paint, i, j, SDL_MapRGB(paint->format, r, g, b));
+    }
+  }
+
+  SDL_Flip(paint);
+}
 void no_filter()
 {
- SDL_Surface *paint2 = NULL;
- paint2 = SDL_LoadBMP("tmpimage/painttmp.bmp");
- SDL_BlitSurface(paint2, NULL, paint, NULL);
- SDL_Flip(paint);
+  SDL_Surface *paint2 = NULL;
+  paint2 = SDL_LoadBMP("tmpimage/painttmp.bmp");
+  SDL_BlitSurface(paint2, NULL, paint, NULL);
+  SDL_Flip(paint);
 }
 
 void white_black()
 {
-
-  SDL_SaveBMP(paint,"tmpimage/painttmp.bmp");
+  if (filtre == 0)  
+    {
+      SDL_SaveBMP(paint,"tmpimage/painttmp.bmp");
+      filtre = 1;
+    }
   Uint32 myPix = 0;
   Uint8 r = 0;
   Uint8 g = 0;

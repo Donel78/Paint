@@ -4,9 +4,48 @@ GtkToggleButton *activeButton = NULL;
 GtkToggleButton *activeButton2 = NULL;
 pthread_t handler;
 SDL_Surface *tabsdl[1000]; 
+SDL_Surface *paint; 
 GdkRGBA *color;
 int taille = 0;
 int nosdl;
+
+
+void negSignal()
+{
+   neg_filter();
+}
+
+void rotagSignal()
+{
+  SDL_Rect rect;
+  SDL_Surface *image = NULL;
+  SDL_SaveBMP(paint,"tmpimage/rot.bmp");
+  image = SDL_LoadBMP("tmpimage/rot.bmp");
+  double angle = 90;
+  SDL_Surface *rotation = NULL;
+  SDL_FillRect(paint,NULL,SDL_MapRGB(paint->format, 255,255,255));
+  rotation = rotozoomSurface(image,angle,1.0,1);
+  rect.x = 400 - rotation->w / 2;
+  rect.y = 200 - rotation->h / 2;
+  SDL_BlitSurface(rotation,NULL,paint, &rect);
+  SDL_Flip(paint);
+}
+
+void rotadSignal()
+{
+  SDL_Rect rect;
+  SDL_Surface *image = NULL;
+  SDL_SaveBMP(paint,"tmpimage/rot.bmp");
+  image = SDL_LoadBMP("tmpimage/rot.bmp");
+  double angle = -90;
+  SDL_Surface *rotation = NULL;
+  SDL_FillRect(paint,NULL,SDL_MapRGB(paint->format, 255,255,255));
+  rotation = rotozoomSurface(image,angle,1.0,1);
+  rect.x = 400 - rotation->w / 2;
+  rect.y = 200 - rotation->h / 2;
+  SDL_BlitSurface(rotation,NULL,paint, &rect);
+  SDL_Flip(paint);
+}
 
 void quitSignal()
 {
